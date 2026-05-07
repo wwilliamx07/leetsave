@@ -1,0 +1,19 @@
+{
+    "name": "leetsave",
+    "version": "0.1.0",
+    "description": "Automates submitting LeetCode daily problem",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "start": "node main.js",
+        "dev": "node main.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.1.4",
+        "string-strip-html": "^9.0.0",
+        "node-cron": "^3.0.0"
+    }
+}
