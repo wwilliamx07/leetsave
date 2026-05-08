@@ -24,7 +24,7 @@ async function sendToWebhook(message) {
 function log(out) {
     console.log(out)
     if (!webhook) return
-    sendToWebhook(msg)
+    sendToWebhook(out)
 }
 
 async function solveDaily() {
