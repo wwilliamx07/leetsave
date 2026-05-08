@@ -3,7 +3,7 @@ import { stripHtml } from "string-strip-html"
 
 const cookie = process.env.cookie
 const csrftoken = cookie.match(/csrftoken=([A-Za-z0-9]+)/)[1]
-const username = process.env.name
+const username = process.env.leetcode_name
 const api_base = process.env.api_base
 
 export async function submitCode(lang, questionId, code) {
@@ -150,21 +150,16 @@ export async function getTopSolution(titleSlug, lang) {
 export async function checkRecentlySolved(titleSlug) {
     try {
         const now = new Date()
-        const cutoff = new Date(now)
-
-        cutoff.setUTCHours(1, 0, 0, 0)
-
-        if (now.getUTCHours() < 1) {
-            cutoff.setUTCDate(cutoff.getUTCDate() - 1)
-        }
+        const startOfUtcDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0)
 
         const resp = await fetch(`${api_base}/${username}/submission`)
-        const { submission } = await resp.json()
+        const body = await resp.json()
+        const submission = body.submission || []
 
         return submission.some(s =>
             s.titleSlug === titleSlug &&
             s.statusDisplay === "Accepted" &&
-            new Date(s.timestamp * 1000) >= cutoff
+            (s.timestamp * 1000) >= startOfUtcDay
         )
     } catch {
         return false
