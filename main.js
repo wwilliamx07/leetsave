@@ -1,4 +1,4 @@
-import {completeProblem, checkRecentlySolved} from "./util.js"
+import {completeProblem, checkRecentlySolved, getUsername} from "./util.js"
 import "dotenv/config"
 import cron from "node-cron"
 
@@ -81,5 +81,15 @@ async function solveDaily() {
     }
 }
 
+async function validateCookie() {
+    const username = await getUsername()
+    if (username === "") {
+        log("Cookie is invalid")
+    }
+}
+
+validateCookie()
+
 cron.schedule("0 22 * * *", solveDaily, { timezone: "UTC" })
+cron.schedule("0 * * * *", validateCookie, { timezone: "UTC" })
 log("Started LeetSave")

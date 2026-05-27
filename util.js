@@ -3,8 +3,37 @@ import { stripHtml } from "string-strip-html"
 
 const cookie = process.env.cookie
 const csrftoken = cookie.match(/csrftoken=([A-Za-z0-9]+)/)[1]
-const username = process.env.leetcode_name
+const leetcodeSession = cookie.match(/LEETCODE_SESSION=([A-Za-z0-9\.\-]+)/)[1]
 const api_base = process.env.api_base
+
+export async function getUsername() {
+    const query = `
+        query {
+            userStatus {
+                username
+            }
+        }
+    `
+
+    try {
+        const response = await fetch("https://leetcode.com/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Cookie": `LEETCODE_SESSION=${leetcodeSession}`,
+                "Referer": "https://leetcode.com",
+            },
+            body: JSON.stringify({ query }),
+        })
+
+        const data = await response.json()
+        return data?.data?.userStatus?.username ?? ""
+    } catch {
+        return ""
+    }
+}
+
+const username = getUsername()
 
 export async function submitCode(lang, questionId, code) {
     const res = await fetch("https://leetcode.com/problems/two-sum/submit/", {
