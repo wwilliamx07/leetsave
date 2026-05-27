@@ -12,7 +12,6 @@ Create a `.env` file in the project root with the variables below.
 - `retry` — Number of retry attempts for submission.
 - `retry_interval` — Minutes between retries.
 - `submit_lang` — LeetCode language slug to submit (e.g. `python3`, `cpp`, `java`).
-- `leetcode_name` — LeetCode username.
 - `webhook` — (optional) Discord or webhook URL to receive logs.
 - `api_base` — api url
 
@@ -24,7 +23,6 @@ google=YOUR_GOOGLE_API_KEY
 retry=3
 retry_interval=5
 submit_lang=python3
-leetcode_name=your_leetcode_username
 webhook=https://discord....
 api_base=https://alfa-leetcode-api.onrender.com
 ```
