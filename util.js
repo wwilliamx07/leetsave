@@ -3,7 +3,7 @@ import { stripHtml } from "string-strip-html"
 
 const cookie = process.env.cookie
 const csrftoken = cookie.match(/csrftoken=([A-Za-z0-9]+)/)[1]
-const leetcodeSession = cookie.match(/LEETCODE_SESSION=([A-Za-z0-9\.\-]+)/)[1]
+const leetcodeSession = cookie.match(/LEETCODE_SESSION=([A-Za-z0-9\.\-_]+)/)[1]
 const api_base = process.env.api_base
 
 export async function getUsername() {

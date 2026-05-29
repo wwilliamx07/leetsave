@@ -81,14 +81,16 @@ async function solveDaily() {
     }
 }
 
-async function validateCookie() {
+async function validateCookie(logUser = false) {
     const username = await getUsername()
     if (username === "") {
         log("Cookie is invalid")
+    } else if (logUser) {
+        log(`Logged in as: ${username}`)
     }
 }
 
-validateCookie()
+validateCookie(true)
 
 cron.schedule("0 22 * * *", solveDaily, { timezone: "UTC" })
 cron.schedule("0 * * * *", validateCookie, { timezone: "UTC" })
