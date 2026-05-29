@@ -85,7 +85,7 @@ async function validateCookie(logUser = false) {
     const username = await getUsername()
     if (username === "") {
         log("Cookie is invalid")
-    } else if (logUser) {
+    } else if (logUser === true) {
         log(`Logged in as: ${username}`)
     }
 }
